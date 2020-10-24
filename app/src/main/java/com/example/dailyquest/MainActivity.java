@@ -6,14 +6,14 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SQLiteConnection db;
+    // private SQLiteConnection db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Database initialization test
-        db = new SQLiteConnection(this);
+        // db = new SQLiteConnection(this);
 
         setContentView(R.layout.activity_main);
     }

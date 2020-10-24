@@ -69,6 +69,8 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         super(context, DatabaseFile, null, 1);
     }
 
+    //region Overrides
+
     @Override
     public void onCreate(SQLiteDatabase db){
         /** Overrides the onCreate method so that the application can create all required
@@ -94,5 +96,5 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
+    //endregion
 }
