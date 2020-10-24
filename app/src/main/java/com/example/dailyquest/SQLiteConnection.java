@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class SQLiteConnection extends SQLiteOpenHelper {
     private static final String DatabaseFile = "DailyQuestDatabase.db";
 
@@ -94,6 +96,70 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
         // Recreate the database
         onCreate(db);
+    }
+
+    //endregion
+
+    //region Data Inserters
+
+    public boolean insertQuest(String questDesc, int questType, int questStartTime, int questEndTime){
+        // TODO
+        return false;
+    }
+
+    //endregion
+
+    //region Data Updaters
+
+    public boolean updatePlayer(String playerName, int playerLevel, int playerPoints, int playerClass){
+        // TODO
+        return false;
+    }
+
+    public boolean updateStat(String statName, int statVal){
+        // TODO
+        return false;
+    }
+
+    public boolean updateQuest(int questId, String questDesc, int questType, int questStartTime, int questEndTime){
+        // TODO
+        return false;
+    }
+
+    //endregion
+
+    //region Data Getters
+
+    public ArrayList<SQLiteDataModels.StatModel> getAllStats(){
+        ArrayList<SQLiteDataModels.StatModel> stats = new ArrayList<SQLiteDataModels.StatModel>();
+
+        // TODO
+
+        return stats;
+    }
+
+    public SQLiteDataModels.StatModel getStatByName(String statName){
+        SQLiteDataModels.StatModel stat = new SQLiteDataModels.StatModel();
+
+        // TODO
+
+        return stat;
+    }
+
+    public ArrayList<SQLiteDataModels.QuestModel> getAllQuests(){
+        ArrayList<SQLiteDataModels.QuestModel> stats = new ArrayList<SQLiteDataModels.QuestModel>();
+
+        // TODO
+
+        return stats;
+    }
+
+    public SQLiteDataModels.QuestModel getQuestById(int questId){
+        SQLiteDataModels.QuestModel stat = new SQLiteDataModels.QuestModel();
+
+        // TODO
+
+        return stat;
     }
 
     //endregion
