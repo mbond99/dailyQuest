@@ -1,6 +1,8 @@
 package com.example.dailyquest;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -64,6 +66,21 @@ public class SQLiteConnection extends SQLiteOpenHelper {
                     "%s INTEGER NOT NULL);",
             TABLE_QUEST, QUEST_ID, QUEST_DESC, QUEST_TYPE, QUEST_START_TIME, QUEST_END_TIME);
 
+    private static final String QUERY_DELETE_TABLE = "DROP TABLE IF EXISTS %s;";
+    //endregion
+
+    //region Database Selection Queries
+
+    private static String QUERY_SELECT_ALL_STATS = String.format(
+            "SELECT * FROM %s",
+            TABLE_STAT
+    );
+
+    private static String QUERY_SELECT_ALL_QUESTS = String.format(
+            "SELECT * FROM %s",
+            TABLE_QUEST
+    );
+
     //endregion
 
     public SQLiteConnection(Context context) {
@@ -90,9 +107,9 @@ public class SQLiteConnection extends SQLiteOpenHelper {
          * will be properly updated. **/
 
         // Delete all tables
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s;", TABLE_PLAYER));
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s;", TABLE_STAT));
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s;", TABLE_QUEST));
+        db.execSQL(String.format(QUERY_DELETE_TABLE, TABLE_PLAYER));
+        db.execSQL(String.format(QUERY_DELETE_TABLE, TABLE_STAT));
+        db.execSQL(String.format(QUERY_DELETE_TABLE, TABLE_QUEST));
 
         // Recreate the database
         onCreate(db);
@@ -103,7 +120,26 @@ public class SQLiteConnection extends SQLiteOpenHelper {
     //region Data Inserters
 
     public boolean insertQuest(String questDesc, int questType, int questStartTime, int questEndTime){
-        // TODO
+        /** Inserts a quest with the passed parameters. Returns true if successful
+         * and false if the insertion failed. **/
+
+        // Grab the database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Set the values to insert into the QUEST table
+        ContentValues newQuest = new ContentValues();
+        newQuest.put(QUEST_DESC, questDesc);
+        newQuest.put(QUEST_TYPE, questType);
+        newQuest.put(QUEST_START_TIME, questStartTime);
+        newQuest.put(QUEST_END_TIME, questEndTime);
+
+        // Insert the quest and get results
+        long result = db.insert(TABLE_QUEST, null, newQuest);
+
+        // If result is greater than 0 then the quest was properly inserted, otherwise return false
+        if (result > 0){
+            return true;
+        }
         return false;
     }
 
@@ -112,6 +148,11 @@ public class SQLiteConnection extends SQLiteOpenHelper {
     //region Data Updaters
 
     public boolean updatePlayer(String playerName, int playerLevel, int playerPoints, int playerClass){
+        // TODO
+        return false;
+    }
+
+    public boolean updatePlayerLevel(int playerLevel, int playerPoints){
         // TODO
         return false;
     }
@@ -131,9 +172,21 @@ public class SQLiteConnection extends SQLiteOpenHelper {
     //region Data Getters
 
     public ArrayList<SQLiteDataModels.StatModel> getAllStats(){
+        SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<SQLiteDataModels.StatModel> stats = new ArrayList<SQLiteDataModels.StatModel>();
 
-        // TODO
+        Cursor nextStat = db.rawQuery(QUERY_SELECT_ALL_STATS, null);
+        nextStat.moveToFirst();
+
+        while (nextStat.isAfterLast() == false){
+            SQLiteDataModels.StatModel stat = new SQLiteDataModels.StatModel();
+
+            stat.StatId = nextStat.getInt(nextStat.getColumnIndex(STAT_ID));
+            stat.StatName = nextStat.getString(nextStat.getColumnIndex(STAT_NAME));
+            stat.StatValue = nextStat.getInt(nextStat.getColumnIndex(STAT_VALUE));
+
+            nextStat.moveToNext();
+        }
 
         return stats;
     }
@@ -147,19 +200,33 @@ public class SQLiteConnection extends SQLiteOpenHelper {
     }
 
     public ArrayList<SQLiteDataModels.QuestModel> getAllQuests(){
-        ArrayList<SQLiteDataModels.QuestModel> stats = new ArrayList<SQLiteDataModels.QuestModel>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<SQLiteDataModels.QuestModel> quests = new ArrayList<SQLiteDataModels.QuestModel>();
 
-        // TODO
+        Cursor nextQuest = db.rawQuery(QUERY_SELECT_ALL_QUESTS, null);
+        nextQuest.moveToFirst();
 
-        return stats;
+        while (nextQuest.isAfterLast() == false){
+            SQLiteDataModels.QuestModel quest = new SQLiteDataModels.QuestModel();
+
+            quest.QuestId = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_ID));
+            quest.QuestDesc = nextQuest.getString(nextQuest.getColumnIndex(QUEST_DESC));
+            quest.QuestType = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_TYPE));
+            quest.QuestStartTime = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_START_TIME));
+            quest.QuestEndTime = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_END_TIME));
+
+            nextQuest.moveToNext();
+        }
+
+        return quests;
     }
 
     public SQLiteDataModels.QuestModel getQuestById(int questId){
-        SQLiteDataModels.QuestModel stat = new SQLiteDataModels.QuestModel();
+        SQLiteDataModels.QuestModel quest = new SQLiteDataModels.QuestModel();
 
         // TODO
 
-        return stat;
+        return quest;
     }
 
     //endregion
