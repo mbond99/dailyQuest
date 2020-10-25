@@ -67,44 +67,45 @@ public class SQLiteConnection extends SQLiteOpenHelper {
             TABLE_QUEST, QUEST_ID, QUEST_DESC, QUEST_TYPE, QUEST_START_TIME, QUEST_END_TIME);
 
     private static final String QUERY_DELETE_TABLE = "DROP TABLE IF EXISTS %s;";
+
     //endregion
 
     //region Database Selection Queries
 
-    private static String QUERY_SELECT_ALL_STATS = String.format(
+    private static final String QUERY_SELECT_ALL_STATS = String.format(
             "SELECT * FROM %s",
             TABLE_STAT
     );
 
-    private static String QUERY_SELECT_ALL_QUESTS = String.format(
+    private static final String QUERY_SELECT_ALL_QUESTS = String.format(
             "SELECT * FROM %s",
             TABLE_QUEST
     );
 
     //endregion
 
+    /** The SQLiteConnection constructor **/
     public SQLiteConnection(Context context) {
-        /** The SQLiteConnection constructor **/
         super(context, DatabaseFile, null, 1);
     }
 
     //region Overrides
 
+    /** Overrides the onCreate method so that the application can create all required
+     * database tables and other database info if they do not already exist **/
     @Override
     public void onCreate(SQLiteDatabase db){
-        /** Overrides the onCreate method so that the application can create all required
-         * database tables and other database info if they do not already exist **/
-
         // Create the tables
         db.execSQL(QUERY_CREATE_PLAYER_TABLE);
         db.execSQL(QUERY_CREATE_STAT_TABLE);
         db.execSQL(QUERY_CREATE_QUEST_TABLE);
     }
 
+    /** Overrides the onUpgrade method so that if the database needs upgraded all tables
+     * will be properly updated. **/
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-        /** Overrides the onUpgrade method so that if the database needs upgraded all tables
-         * will be properly updated. **/
+
 
         // Delete all tables
         db.execSQL(String.format(QUERY_DELETE_TABLE, TABLE_PLAYER));
@@ -119,9 +120,10 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
     //region Data Inserters
 
+    /** Inserts a quest with the passed parameters. Returns true if successful
+     * and false if the insertion failed. **/
     public boolean insertQuest(String questDesc, int questType, int questStartTime, int questEndTime){
-        /** Inserts a quest with the passed parameters. Returns true if successful
-         * and false if the insertion failed. **/
+
 
         // Grab the database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -137,10 +139,7 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         long result = db.insert(TABLE_QUEST, null, newQuest);
 
         // If result is greater than 0 then the quest was properly inserted, otherwise return false
-        if (result > 0){
-            return true;
-        }
-        return false;
+        return result > 0;
     }
 
     //endregion
@@ -178,7 +177,7 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         Cursor nextStat = db.rawQuery(QUERY_SELECT_ALL_STATS, null);
         nextStat.moveToFirst();
 
-        while (nextStat.isAfterLast() == false){
+        while (!nextStat.isAfterLast()){
             SQLiteDataModels.StatModel stat = new SQLiteDataModels.StatModel();
 
             stat.StatId = nextStat.getInt(nextStat.getColumnIndex(STAT_ID));
@@ -187,6 +186,7 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
             nextStat.moveToNext();
         }
+        nextStat.close();
 
         return stats;
     }
@@ -206,7 +206,7 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         Cursor nextQuest = db.rawQuery(QUERY_SELECT_ALL_QUESTS, null);
         nextQuest.moveToFirst();
 
-        while (nextQuest.isAfterLast() == false){
+        while (!nextQuest.isAfterLast()){
             SQLiteDataModels.QuestModel quest = new SQLiteDataModels.QuestModel();
 
             quest.QuestId = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_ID));
@@ -217,6 +217,7 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
             nextQuest.moveToNext();
         }
+        nextQuest.close();
 
         return quests;
     }
