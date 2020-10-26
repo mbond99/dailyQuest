@@ -1,12 +1,10 @@
 package com.example.dailyquest;
-import java.awt.image.BufferedImage;
 
 //not sure how to get image to work and need to hard code characters
 
 public class Character {
     //variables
     private String characterClass;
-    private image characterImage;
     private int strength;
     private int intelligance;
     private int dexterity;
@@ -16,16 +14,14 @@ public class Character {
     private Character()
     {
         characterClass = "";
-        characterImage = "";
         strength = 0;
         intelligance = 0;
         dexterity = 0;
         consitution = 0;
     }
-    private Character(String charClass, image charImage, int cStrength, int cIntelligance, int cDexterity, int cConsitution)
+    private Character(String charClass, int cStrength, int cIntelligance, int cDexterity, int cConsitution)
     {
         characterClass = charClass;
-        characterImage = charImage;
         strength = cStrength;
         intelligance = cIntelligance;
         dexterity = cDexterity;
@@ -37,10 +33,7 @@ public class Character {
     {
         characterClass = cClass;
     }
-    public void setCharacterImage(image cImage)
-    {
-        characterImage = cImage;
-    }
+
     public void setStrength(int s)
     {
         strength = s;
@@ -60,10 +53,6 @@ public class Character {
     public String getCharacterClass()
     {
         return characterClass;
-    }
-    public image getCharacterImage()
-    {
-        return characterImage;
     }
     public int getStrength()
     {
