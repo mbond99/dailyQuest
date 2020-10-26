@@ -72,6 +72,8 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
     //region Database Selection Queries
 
+    private static final String QUERY_SELECT_WHERE = "SELECT * FROM %s WHERE %s = %s";
+
     private static final String QUERY_SELECT_ALL_STATS = String.format(
             "SELECT * FROM %s",
             TABLE_STAT
@@ -89,23 +91,11 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         super(context, DatabaseFile, null, 1);
     }
 
-    //region Overrides
+    //region Public Methods
 
-    /** Overrides the onCreate method so that the application can create all required
-     * database tables and other database info if they do not already exist **/
-    @Override
-    public void onCreate(SQLiteDatabase db){
-        // Create the tables
-        db.execSQL(QUERY_CREATE_PLAYER_TABLE);
-        db.execSQL(QUERY_CREATE_STAT_TABLE);
-        db.execSQL(QUERY_CREATE_QUEST_TABLE);
-    }
-
-    /** Overrides the onUpgrade method so that if the database needs upgraded all tables
-     * will be properly updated. **/
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-
+    /** Drops all tables and then recreates them, effectively wiping the local db for future use **/
+    public void wipeDatabase() {
+        SQLiteDatabase db = this.getWritableDatabase();
 
         // Delete all tables
         db.execSQL(String.format(QUERY_DELETE_TABLE, TABLE_PLAYER));
@@ -118,13 +108,36 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
     //endregion
 
-    //region Data Inserters
+    //region Overrides
+
+    /** Overrides the onCreate method so that the application can create all required
+     * database tables and other database info if they do not already exist **/
+    @Override
+    public void onCreate(SQLiteDatabase db){
+        // Create the tables
+        db.execSQL(QUERY_CREATE_PLAYER_TABLE);
+        db.execSQL(QUERY_CREATE_STAT_TABLE);
+        db.execSQL(QUERY_CREATE_QUEST_TABLE);
+
+        // TODO Insert initial player row
+
+        // TODO Insert required stat rows
+    }
+
+    /** Overrides the onUpgrade method so that if the database needs upgraded all tables
+     * will be properly wiped. **/
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+        wipeDatabase();
+    }
+
+    //endregion
+
+    //region Data Insertion
 
     /** Inserts a quest with the passed parameters. Returns true if successful
      * and false if the insertion failed. **/
     public boolean insertQuest(String questDesc, int questType, int questStartTime, int questEndTime){
-
-
         // Grab the database
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -140,6 +153,15 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
         // If result is greater than 0 then the quest was properly inserted, otherwise return false
         return result > 0;
+    }
+
+    //endregion
+
+    //region Data Deletion
+
+    public boolean deleteQuestById(int id){
+        // TODO
+        return false;
     }
 
     //endregion
@@ -192,9 +214,21 @@ public class SQLiteConnection extends SQLiteOpenHelper {
     }
 
     public SQLiteDataModels.StatModel getStatByName(String statName){
+        SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDataModels.StatModel stat = new SQLiteDataModels.StatModel();
 
-        // TODO
+        String query = String.format("SELECT * FROM %s WHERE %s = %s",
+                TABLE_STAT, STAT_NAME, statName);
+        Cursor dbEntry = db.rawQuery(query, null);
+        if (dbEntry.getCount() > 0) {
+            dbEntry.moveToFirst();
+
+            stat.StatId = dbEntry.getInt(dbEntry.getColumnIndex(STAT_ID));
+            stat.StatName = dbEntry.getString(dbEntry.getColumnIndex(STAT_NAME));
+            stat.StatValue = dbEntry.getInt(dbEntry.getColumnIndex(STAT_VALUE));
+
+            dbEntry.close();
+        }
 
         return stat;
     }
@@ -223,9 +257,22 @@ public class SQLiteConnection extends SQLiteOpenHelper {
     }
 
     public SQLiteDataModels.QuestModel getQuestById(int questId){
+        SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDataModels.QuestModel quest = new SQLiteDataModels.QuestModel();
 
-        // TODO
+        String query = String.format(QUERY_SELECT_WHERE, TABLE_QUEST, QUEST_ID, questId);
+        Cursor dbEntry = db.rawQuery(query, null);
+        if (dbEntry.getCount() > 0) {
+            dbEntry.moveToFirst();
+
+            quest.QuestId = dbEntry.getInt(dbEntry.getColumnIndex(QUEST_ID));
+            quest.QuestDesc = dbEntry.getString(dbEntry.getColumnIndex(QUEST_DESC));
+            quest.QuestType = dbEntry.getInt(dbEntry.getColumnIndex(QUEST_TYPE));
+            quest.QuestStartTime = dbEntry.getInt(dbEntry.getColumnIndex(QUEST_START_TIME));
+            quest.QuestEndTime = dbEntry.getInt(dbEntry.getColumnIndex(QUEST_END_TIME));
+
+            dbEntry.close();
+        }
 
         return quest;
     }
