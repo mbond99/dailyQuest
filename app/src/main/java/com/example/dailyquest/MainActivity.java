@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     // Database specific declarations
     private SQLiteConnection localDatabase;
     private static final boolean RESET_DATABASE = false;
+    private static final boolean TEST_DATABASE = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
         // Wipes the database if RESET_DATABASE is true
         if (RESET_DATABASE) {
             localDatabase.wipeDatabase();
+        }
+
+        // Tests to see if database is properly loading
+        if (TEST_DATABASE) {
+            ArrayList<SQLiteDataModels.StatModel> stats = localDatabase.getAllStats();
+            for (SQLiteDataModels.StatModel stat : stats) {
+                System.out.println(String.format("\tID: %d, NAME: %s, VALUE: %d", stat.StatId, stat.StatName, stat.StatValue));
+            }
         }
     }
 }

@@ -121,7 +121,19 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
         // TODO Insert initial player row
 
-        // TODO Insert required stat rows
+        // Insert required stat rows
+        ArrayList<SQLiteDataModels.StatModel> stats = new ArrayList<SQLiteDataModels.StatModel>();
+        stats.add(SQLiteDataModels.CreateStatModel("strength",0));
+        stats.add(SQLiteDataModels.CreateStatModel("intelligence",0));
+        stats.add(SQLiteDataModels.CreateStatModel("dexterity",0));
+        stats.add(SQLiteDataModels.CreateStatModel("constitution",0));
+
+        for (SQLiteDataModels.StatModel stat : stats){
+            ContentValues row = new ContentValues();
+            row.put(STAT_NAME, stat.StatName);
+            row.put(STAT_VALUE, stat.StatValue);
+            db.insert(TABLE_STAT, null, row);
+        }
     }
 
     /** Overrides the onUpgrade method so that if the database needs upgraded all tables
@@ -160,8 +172,12 @@ public class SQLiteConnection extends SQLiteOpenHelper {
     //region Data Deletion
 
     public boolean deleteQuestById(int id){
-        // TODO
-        return false;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int result = db.delete(TABLE_QUEST, String.format("%s = ?", QUEST_ID),
+                new String[] {Integer.toString(id)});
+
+        return result > 0;
     }
 
     //endregion
@@ -206,6 +222,8 @@ public class SQLiteConnection extends SQLiteOpenHelper {
             stat.StatName = nextStat.getString(nextStat.getColumnIndex(STAT_NAME));
             stat.StatValue = nextStat.getInt(nextStat.getColumnIndex(STAT_VALUE));
 
+            stats.add(stat);
+
             nextStat.moveToNext();
         }
         nextStat.close();
@@ -248,6 +266,8 @@ public class SQLiteConnection extends SQLiteOpenHelper {
             quest.QuestType = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_TYPE));
             quest.QuestStartTime = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_START_TIME));
             quest.QuestEndTime = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_END_TIME));
+
+            quests.add(quest);
 
             nextQuest.moveToNext();
         }
