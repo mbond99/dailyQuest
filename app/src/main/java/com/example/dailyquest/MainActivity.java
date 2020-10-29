@@ -37,6 +37,17 @@ public class MainActivity extends AppCompatActivity {
             for (SQLiteDataModels.StatModel stat : stats) {
                 System.out.println(String.format("\tID: %d, NAME: %s, VALUE: %d", stat.StatId, stat.StatName, stat.StatValue));
             }
+
+            // Testing to see if updateStat works
+            for (SQLiteDataModels.StatModel stat : stats) {
+                System.out.println(localDatabase.updateStat(stat.StatName, stat.StatValue+1));
+            }
+
+            // Reload stats to make sure they were updated in the database
+            stats = localDatabase.getAllStats();
+            for (SQLiteDataModels.StatModel stat : stats) {
+                System.out.println(String.format("\tID: %d, NAME: %s, VALUE: %d", stat.StatId, stat.StatName, stat.StatValue));
+            }
         }
     }
 }

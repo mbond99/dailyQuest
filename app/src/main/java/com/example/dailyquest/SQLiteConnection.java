@@ -167,6 +167,24 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         return result > 0;
     }
 
+    public boolean insertQuest(SQLiteDataModels.QuestModel quest){
+        // Grab the database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Set the values to insert into the QUEST table
+        ContentValues newQuest = new ContentValues();
+        newQuest.put(QUEST_DESC, quest.QuestDesc);
+        newQuest.put(QUEST_TYPE, quest.QuestType);
+        newQuest.put(QUEST_START_TIME, quest.QuestStartTime);
+        newQuest.put(QUEST_END_TIME, quest.QuestEndTime);
+
+        // Insert the quest and get results
+        long result = db.insert(TABLE_QUEST, null, newQuest);
+
+        // If result is greater than 0 then the quest was properly inserted, otherwise return false
+        return result > 0;
+    }
+
     //endregion
 
     //region Data Deletion
@@ -195,11 +213,34 @@ public class SQLiteConnection extends SQLiteOpenHelper {
     }
 
     public boolean updateStat(String statName, int statVal){
-        // TODO
-        return false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues stat = new ContentValues();
+
+        stat.put(STAT_NAME, statName);
+        stat.put(STAT_VALUE, statVal);
+
+        int result = db.update(TABLE_STAT, stat, String.format("%s = ?", STAT_NAME),
+                new String[] { statName });
+
+        return result > 0;
     }
 
     public boolean updateQuest(int questId, String questDesc, int questType, int questStartTime, int questEndTime){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues quest = new ContentValues();
+
+        quest.put(QUEST_DESC, questDesc);
+        quest.put(QUEST_TYPE, questType);
+        quest.put(QUEST_START_TIME, questStartTime);
+        quest.put(QUEST_END_TIME, questEndTime);
+
+        int result = db.update(TABLE_QUEST, quest, String.format("%s = ?", QUEST_ID),
+                new String[] { Integer.toString(questId) });
+
+        return result > 0;
+    }
+
+    public boolean updateQuest(SQLiteDataModels.QuestModel quest){
         // TODO
         return false;
     }
