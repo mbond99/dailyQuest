@@ -11,7 +11,7 @@ public class Character {
     private int consitution;
 
     //constructors
-    private Character()
+    public Character()
     {
         characterClass = "";
         strength = 0;
@@ -19,7 +19,7 @@ public class Character {
         dexterity = 0;
         consitution = 0;
     }
-    private Character(String charClass, int cStrength, int cIntelligance, int cDexterity, int cConsitution)
+    public Character(String charClass, int cStrength, int cIntelligance, int cDexterity, int cConsitution)
     {
         characterClass = charClass;
         strength = cStrength;
