@@ -117,7 +117,7 @@ public class GamePlayer {
     //the attackMonster function uses the players stats to calculate the attack and returns the attack points
     public int attackMonster()
     {
-
+        return 0;
     }
 
     //the defend function subtracts 10 points from the player since they chose to buy defense

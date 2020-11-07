@@ -2,15 +2,15 @@ package com.example.dailyquest;
 
 import java.util.ArrayList;
 
-public class Calendar {
+public class QuestCalendar {
 
     private ArrayList<Quest> questList;
 
-    public Calendar(){
+    public QuestCalendar(){
         questList = new ArrayList<>();
     }
 
-    public Calendar(ArrayList<Quest> quests){
+    public QuestCalendar(ArrayList<Quest> quests){
         questList = quests;
     }
 

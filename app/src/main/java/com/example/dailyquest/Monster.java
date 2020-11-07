@@ -94,6 +94,6 @@ public class Monster {
     //calculations then returns the attack value
     public int attackPlayer()
     {
-
+        return 0;
     }
 }
