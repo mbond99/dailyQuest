@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.dailyquest.AddQuestActivity" />
         <activity android:name="com.example.dailyquest.BaseActivity" />
         <activity android:name="com.example.dailyquest.BasicActivity" />
         <activity android:name="com.example.dailyquest.MainMenu" />
