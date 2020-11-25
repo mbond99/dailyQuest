@@ -1,25 +1,27 @@
 package com.example.dailyquest;
 
+import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
-public class Quest {
+public class Quest implements Serializable {
 
     private String  type;
-    private Date    startTime;
-    private Date    endTime;
+    private Calendar startTime;
+    private int    durationMinutes;
     private String  description;
 
     public Quest(){
         type        = "";
-        startTime   = new Date();
-        endTime     = new Date();
+        startTime   = Calendar.getInstance();
+        durationMinutes     = 0;
         description = "";
     }
 
-    public Quest(String t, Date start, Date end, String desc){
+    public Quest(String t, Calendar start, int end, String desc){
         type        = t;
         startTime   = start;
-        endTime     = end;
+        durationMinutes     = end;
         description = desc;
     }
 
@@ -51,12 +53,12 @@ public class Quest {
         type = s;
     }
 
-    public void setSTime(Date d){
+    public void setSTime(Calendar d){
         startTime = d;
     }
 
-    public void setETime(Date d){
-        endTime = d;
+    public void setETime(int d){
+        durationMinutes = d;
     }
 
     public void setDescription(String s){
@@ -67,12 +69,12 @@ public class Quest {
         return type;
     }
 
-    public Date getStartTime(){
+    public Calendar getStartTime(){
         return startTime;
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public int getEndTime() {
+        return durationMinutes;
     }
 
     public String getDescription() {

@@ -32,13 +32,19 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
     private static final int TYPE_WEEK_VIEW = 3;
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
+    protected QuestCalendar questList;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
+        questList = new QuestCalendar();
+        if(getIntent().getExtras() != null) {
+            Quest quest = (Quest) getIntent().getSerializableExtra("Quest");
+            questList.addQuest(quest);
+        }
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
 
