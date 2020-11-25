@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,11 @@ public class MainMenu extends AppCompatActivity {
 
     public void toCalView(View view) {
         Intent intent = new Intent(getApplicationContext(), BasicActivity.class);
+        MainMenu.this.startActivity(intent);
+    }
+
+    public void toMageView(View view){
+        Intent intent = new Intent(getApplicationContext(), ChooseMage.class);
         MainMenu.this.startActivity(intent);
     }
 }

@@ -19,6 +19,14 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.dailyquest.ChooseMage" />
+        <activity android:name="com.example.dailyquest.ChooseRogue" />
+        <activity android:name="com.example.dailyquest.ChooseCleric" />
+        <activity android:name="com.example.dailyquest.ChooseFighter" />
+        <activity
+            android:name="com.example.dailyquest.GameActivity"
+            android:label="@string/title_activity_game"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.example.dailyquest.AddQuestActivity" />
         <activity android:name="com.example.dailyquest.BaseActivity" />
         <activity android:name="com.example.dailyquest.BasicActivity" />
