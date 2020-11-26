@@ -6,9 +6,9 @@ public class Monster {
     private int levelNum;
     private int monsterHP;
     private int monsterStrength;
-    private int monsterIntelligance;
+    private int monsterIntelligence;
     private int monsterDexterity;
-    private int monsterConsitution;
+    private int monsterConstitution;
 
     //constructors
     public Monster()
@@ -17,49 +17,49 @@ public class Monster {
         levelNum = 0;
         monsterHP = 0;
         monsterStrength = 0;
-        monsterIntelligance = 0;
-        monsterConsitution = 0;
+        monsterIntelligence = 0;
+        monsterConstitution = 0;
         monsterDexterity = 0;
     }
-    public Monster(String name, int level, int HP, int strength, int intelligance, int constitustion, int dexterity)
+    public Monster(String name, int level, int HP, int strength, int intelligence, int constitution, int dexterity)
     {
         monsterName = name;
         levelNum = level;
         monsterHP = HP;
         monsterStrength = strength;
-        monsterIntelligance = intelligance;
-        monsterConsitution = constitustion;
+        monsterIntelligence = intelligence;
+        monsterConstitution = constitution;
         monsterDexterity = dexterity;
     }
 
     //getter and setter functions
-    private void setMonsterName(String name)
+    public void setMonsterName(String name)
     {
         monsterName = name;
     }
-    private void setLevelNum(int level)
+    public void setLevelNum(int level)
     {
         levelNum = level;
     }
-    private void setMonsterHP(int hp)
+    public void setMonsterHP(int hp)
     {
         monsterHP = hp;
     }
-    private void setMonsterStrength(int strength)
+    public void setMonsterStrength(int strength)
     {
         monsterStrength = strength;
     }
-    private void setMonsterIntelligance(int intelligance)
+    public void setMonsterIntelligance(int intelligence)
     {
-        monsterIntelligance = intelligance;
+        monsterIntelligence = intelligence;
     }
-    private void setMonsterDexterity(int dexterity)
+    public void setMonsterDexterity(int dexterity)
     {
         monsterDexterity = dexterity;
     }
-    private void setMonsterConsitution(int consitution)
+    public void setMonsterConsitution(int constitution)
     {
-        monsterConsitution = consitution;
+        monsterConstitution = constitution;
     }
     public String getMonsterName()
     {
@@ -79,7 +79,7 @@ public class Monster {
     }
     public int getMonsterIntelligance()
     {
-        return monsterIntelligance;
+        return monsterIntelligence;
     }
     public int getMonsterDexterity()
     {
@@ -87,7 +87,7 @@ public class Monster {
     }
     public int getMonsterConsitution()
     {
-        return monsterConsitution;
+        return monsterConstitution;
     }
 
     //the attack player function takes the values of the monsters stats and performs the attack

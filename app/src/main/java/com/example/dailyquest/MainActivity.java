@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     /** Sets up everything needed for the database connection **/
     private void DatabaseSetup(){
-        localDatabase = new SQLiteConnection(this);
+        localDatabase = new SQLiteConnection(this); //Game needs this
 
         // Wipes the database if RESET_DATABASE is true
         if (RESET_DATABASE) {

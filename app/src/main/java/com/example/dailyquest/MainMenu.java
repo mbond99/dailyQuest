@@ -30,4 +30,9 @@ public class MainMenu extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ChooseMage.class);
         MainMenu.this.startActivity(intent);
     }
+
+    public void toGame(View view){
+        Intent intent = new Intent(getApplicationContext(), Game.class);
+        MainMenu.this.startActivity(intent);
+    }
 }
