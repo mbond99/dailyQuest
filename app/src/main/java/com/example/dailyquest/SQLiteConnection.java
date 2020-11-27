@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class SQLiteConnection extends SQLiteOpenHelper {
     private static final String DatabaseFile = "DailyQuestDatabase.db";
+    private boolean FirstTimeStartUp = false;
 
     // region Table and Column name declarations
 
@@ -47,7 +48,7 @@ public class SQLiteConnection extends SQLiteOpenHelper {
                     "%s TEXT NOT NULL, " +
                     "%s INTEGER NOT NULL, " +
                     "%s INTEGER NOT NULL, "+
-                    "%s INTEGER NOT NULL);",
+                    "%s TEXT NOT NULL);",
             TABLE_PLAYER, PLAYER_ID, PLAYER_NAME, PLAYER_LEVEL, PLAYER_POINTS, PLAYER_CLASS);
 
     private static final String QUERY_CREATE_STAT_TABLE = String.format(
@@ -106,6 +107,10 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public boolean isFirstTimeStartUp(){
+        return FirstTimeStartUp;
+    }
+
     //endregion
 
     //region Overrides
@@ -114,12 +119,19 @@ public class SQLiteConnection extends SQLiteOpenHelper {
      * database tables and other database info if they do not already exist **/
     @Override
     public void onCreate(SQLiteDatabase db){
+        FirstTimeStartUp = true;
+
         // Create the tables
         db.execSQL(QUERY_CREATE_PLAYER_TABLE);
         db.execSQL(QUERY_CREATE_STAT_TABLE);
         db.execSQL(QUERY_CREATE_QUEST_TABLE);
 
-        // TODO Insert initial player row
+        ContentValues val = new ContentValues();
+        val.put(PLAYER_NAME, "Player");
+        val.put(PLAYER_LEVEL, 1);
+        val.put(PLAYER_POINTS, 0);
+        val.put(PLAYER_CLASS, "mage");
+        db.insert(TABLE_PLAYER, null, val);
 
         // Insert required stat rows
         ArrayList<SQLiteDataModels.StatModel> stats = new ArrayList<SQLiteDataModels.StatModel>();
@@ -202,9 +214,19 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
     //region Data Updaters
 
-    public boolean updatePlayer(String playerName, int playerLevel, int playerPoints, int playerClass){
-        // TODO
-        return false;
+    public boolean updatePlayer(String playerName, int playerLevel, int playerPoints, String playerClass){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues val = new ContentValues();
+
+        val.put(PLAYER_NAME, playerName);
+        val.put(PLAYER_LEVEL, playerLevel);
+        val.put(PLAYER_POINTS, playerPoints);
+        val.put(PLAYER_CLASS, playerClass);
+
+        int result = db.update(TABLE_PLAYER, val, String.format("%s = ?", PLAYER_ID),
+                new String[] { String.valueOf(1) });
+
+        return result > 0;
     }
 
     public boolean updatePlayerLevel(int playerLevel, int playerPoints){
@@ -249,6 +271,27 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
     //region Data Getters
 
+    public SQLiteDataModels.PlayerModel getPlayer(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDataModels.PlayerModel player = new SQLiteDataModels.PlayerModel();
+
+        String query = String.format("SELECT * FROM %s WHERE %s = '%s'",
+                TABLE_PLAYER, PLAYER_ID, String.valueOf(1));
+        Cursor dbEntry = db.rawQuery(query, null);
+        if (dbEntry.getCount() > 0) {
+            dbEntry.moveToFirst();
+
+            player.PlayerName = dbEntry.getString(dbEntry.getColumnIndex(PLAYER_NAME));
+            player.PlayerLevel = dbEntry.getInt(dbEntry.getColumnIndex(PLAYER_LEVEL));
+            player.PlayerPoints = dbEntry.getInt(dbEntry.getColumnIndex(PLAYER_POINTS));
+            player.PlayerType = dbEntry.getString(dbEntry.getColumnIndex(PLAYER_CLASS));
+
+            dbEntry.close();
+        }
+
+        return player;
+    }
+
     public ArrayList<SQLiteDataModels.StatModel> getAllStats(){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<SQLiteDataModels.StatModel> stats = new ArrayList<SQLiteDataModels.StatModel>();
@@ -276,7 +319,7 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDataModels.StatModel stat = new SQLiteDataModels.StatModel();
 
-        String query = String.format("SELECT * FROM %s WHERE %s = %s",
+        String query = String.format("SELECT * FROM %s WHERE %s = '%s'",
                 TABLE_STAT, STAT_NAME, statName);
         Cursor dbEntry = db.rawQuery(query, null);
         if (dbEntry.getCount() > 0) {

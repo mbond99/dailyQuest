@@ -9,11 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Game"></activity>
-        <activity android:name=".ChooseMage" />
-        <activity android:name=".ChooseRogue" />
-        <activity android:name=".ChooseCleric" />
-        <activity android:name=".ChooseFighter" />
+        <activity android:name=".Game" />
+        <activity android:name=".ChooseCharacterActivity" />
         <activity android:name=".AddQuestActivity" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".BasicActivity" />

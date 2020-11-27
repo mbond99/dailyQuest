@@ -8,9 +8,11 @@ public class SQLiteDataModels {
 
     public static class PlayerModel {
         public String PlayerName;
+
         public int PlayerLevel;
         public int PlayerPoints;
-        public int PlayerType;
+        public String PlayerType;
+
         public ArrayList<StatModel> PlayerStats;
     }
 

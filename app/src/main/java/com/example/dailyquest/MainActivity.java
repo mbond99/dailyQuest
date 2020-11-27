@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Database specific declarations
     private SQLiteConnection localDatabase;
+    private boolean FirstTimeStartUp = false;
     private static final boolean RESET_DATABASE = false;
     private static final boolean TEST_DATABASE = false;
 
@@ -20,8 +21,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         DatabaseSetup();
+        localDatabase.close();
 
-        Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+        Intent intent;
+        if (FirstTimeStartUp){
+            // This is the first time the user has played the game, launch the character creation
+            // menu and then start the main menu.
+            intent = new Intent(getApplicationContext(), ChooseCharacterActivity.class);
+        }
+        else{
+            // Boots up the main menu on app startup, unless database has not been created.
+            intent = new Intent(getApplicationContext(), MainMenu.class);
+        }
         MainActivity.this.startActivity(intent);
     }
 
@@ -35,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
             localDatabase.wipeDatabase();
         }
 
+        FirstTimeStartUp = localDatabase.isFirstTimeStartUp(); // Check if this is the first time the game is launching
+
         // Tests to see if database is properly loading
         if (TEST_DATABASE) {
             ArrayList<SQLiteDataModels.StatModel> stats = localDatabase.getAllStats();
@@ -46,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
             for (SQLiteDataModels.StatModel stat : stats) {
                 System.out.println(localDatabase.updateStat(stat.StatName, stat.StatValue+1));
             }
+
+            SQLiteDataModels.StatModel strengthStat = localDatabase.getStatByName("strength");
+            System.out.println(strengthStat.StatValue);
 
             // Reload stats to make sure they were updated in the database
             stats = localDatabase.getAllStats();
