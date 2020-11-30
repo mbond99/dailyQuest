@@ -1,8 +1,10 @@
 package com.example.dailyquest;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        questList = new QuestCalendar();
+        questList = new QuestCalendar(); //NIC LOOK HERE
         if(getIntent().getExtras() != null) {
             Quest quest = (Quest) getIntent().getSerializableExtra("Quest");
             questList.addQuest(quest);
@@ -163,17 +165,37 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(this, "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
+        int fitnessColor = Color.parseColor("#f57f68");
+        int mentalColor = Color.parseColor("#59DBE0");
+        int healthColor = Color.parseColor("#87D288");
+        Quest q = new Quest();
+        q.setDescription(event.getName());
+        if(event.getColor() == fitnessColor){
+            q.setType("Fitness");
+        }
+        if(event.getColor() == mentalColor){
+            q.setType("Mental");
+        }
+        if(event.getColor() == healthColor){
+            q.setType("Health");
+        }
+        long timeDeltaMillis = event.getEndTime().getTimeInMillis()-event.getStartTime().getTimeInMillis();
+        int timeDeltaMin = (int)timeDeltaMillis/60000;
+        q.setETime(timeDeltaMin);
+
+        Intent intent = new Intent(getApplicationContext(), QuestActivity.class);
+        intent.putExtra("QuestView", q);
+        BaseActivity.this.startActivity(intent);
     }
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(this, "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void onEmptyViewLongPress(Calendar time) {
-        Toast.makeText(this, "Empty view long pressed: " + getEventTitle(time), Toast.LENGTH_SHORT).show();
+
     }
 
     public WeekView getWeekView() {

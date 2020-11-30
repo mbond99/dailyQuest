@@ -22,4 +22,5 @@
     <string name="title_activity_choose_mage">ChooseMage</string>
     <string name="title_activity_choose_fighter">ChooseFighter</string>
     <string name="title_activity_choose_cleric">ChooseCleric</string>
+    <string name="title_activity_quest">QuestActivity</string>
 </resources>

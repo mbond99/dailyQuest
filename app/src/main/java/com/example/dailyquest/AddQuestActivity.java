@@ -3,6 +3,7 @@ package com.example.dailyquest;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -48,18 +49,27 @@ public class AddQuestActivity extends AppCompatActivity {
     }
 
     public void finish(View v){
-        Quest quest = new Quest();
-        quest.setType((String) spinner.getSelectedItem());
         EditText desc = findViewById(R.id.descriptionText);
-        quest.setDescription(desc.getText().toString());
-        System.out.println(startTime.toString());
-        quest.setSTime(startTime);
         EditText duration = findViewById(R.id.durationText);
-        quest.setETime(Integer.parseInt(duration.getText().toString()));
-        //questList.addQuest(quest);
-        Intent intent = new Intent(getApplicationContext(), BasicActivity.class);
-        intent.putExtra("Quest", quest);
-        AddQuestActivity.this.startActivity(intent);
+        TextView time = findViewById(R.id.timeText);
+        TextView date = findViewById(R.id.dateText);
+        if(desc.getText().length() == 0 || duration.getText().length() == 0 || time.getText().length() == 0 || date.getText().length() == 0){
+            new AlertDialog.Builder(this)
+                    .setTitle("Input All Fields")
+                    .setMessage("Make sure to fill out every field!")
+                    .setNegativeButton(android.R.string.ok, null)
+                    .show();
+        }
+        else {
+            Quest quest = new Quest();
+            quest.setType((String) spinner.getSelectedItem());
+            quest.setDescription(desc.getText().toString());
+            quest.setSTime(startTime);
+            quest.setETime(Integer.parseInt(duration.getText().toString()));
+            Intent intent = new Intent(getApplicationContext(), BasicActivity.class);
+            intent.putExtra("Quest", quest);
+            AddQuestActivity.this.startActivity(intent);
+        }
     }
 
 }
