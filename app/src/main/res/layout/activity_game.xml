@@ -27,59 +27,57 @@
 
     <ImageView
         android:id="@+id/mage"
-        android:layout_width="97dp"
-        android:layout_height="131dp"
+        android:layout_width="120dp"
+        android:layout_height="175dp"
         android:background="#00F1EAEA"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintHorizontal_bias="0.247"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.782"
+        app:layout_constraintVertical_bias="0.694"
         app:srcCompat="@drawable/mage" />
 
     <ImageView
         android:id="@+id/cleric"
         android:layout_width="126dp"
         android:layout_height="171dp"
-        android:layout_marginTop="181dp"
-        android:layout_marginBottom="59dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintHorizontal_bias="0.239"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.666"
         app:srcCompat="@drawable/cleric" />
 
     <ImageView
         android:id="@+id/fighter"
-        android:layout_width="119dp"
-        android:layout_height="153dp"
+        android:layout_width="133dp"
+        android:layout_height="173dp"
         android:layout_marginTop="142dp"
         android:layout_marginBottom="56dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.078"
+        app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintVertical_bias="0.65"
         app:srcCompat="@drawable/fighter" />
 
     <ImageView
         android:id="@+id/rogue"
-        android:layout_width="104dp"
-        android:layout_height="132dp"
+        android:layout_width="120dp"
+        android:layout_height="173dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintHorizontal_bias="0.237"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.696"
+        app:layout_constraintVertical_bias="0.697"
         app:srcCompat="@drawable/rogue" />
 
     <Button
@@ -87,18 +85,15 @@
         android:layout_width="140dp"
         android:layout_height="35dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
         android:layout_marginEnd="577dp"
-        android:layout_marginBottom="2dp"
-        android:text="Mind Blast"
         android:onClick="activateMindBlast"
+        android:text="Mind Blast"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/mysticBurst"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/mysticBurst"
@@ -106,8 +101,8 @@
         android:layout_height="35dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="577dp"
-        android:text="Mystic Burst"
         android:onClick="activateMysticBurst"
+        android:text="Mystic Burst"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/blazingRush"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,16 +115,15 @@
         android:layout_width="140dp"
         android:layout_height="35dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="577dp"
-        android:layout_marginBottom="59dp"
-        android:text="Blazing Rush"
         android:onClick="activateBlazingRush"
+        android:text="Blazing Rush"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/cleric"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mysticBurst" />
+        app:layout_constraintTop_toBottomOf="@+id/chaosShock" />
 
     <Button
         android:id="@+id/smashingBlitz"
@@ -137,15 +131,15 @@
         android:layout_height="35dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="567dp"
-        android:text="Smashing Blitz"
         android:onClick="activateSmashingBlitz"
+        android:text="Smashing Blitz"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/mysticBurst"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mindBlast"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.042" />
 
     <Button
         android:id="@+id/chaosShock"
@@ -153,19 +147,21 @@
         android:layout_height="35dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="567dp"
-        android:text="Chaos Shock"
         android:onClick="activateChaosShock"
+        android:text="Chaos Shock"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/blazingRush"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/smashingBlitz" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.167" />
 
     <ImageView
         android:id="@+id/skeleton1"
-        android:layout_width="137dp"
-        android:layout_height="160dp"
-        android:layout_marginStart="504dp"
+        android:layout_width="167dp"
+        android:layout_height="220dp"
+        android:layout_marginStart="450dp"
         android:layout_marginTop="204dp"
         android:layout_marginEnd="90dp"
         android:layout_marginBottom="47dp"
@@ -175,21 +171,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/skeleton1" />
 
     <ImageView
         android:id="@+id/blue_flying_monster"
         android:layout_width="179dp"
         android:layout_height="152dp"
-        android:layout_marginStart="504dp"
+        android:layout_marginStart="450dp"
         android:layout_marginEnd="48dp"
+        android:rotationY="180"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.729"
+        app:layout_constraintVertical_bias="0.436"
         app:srcCompat="@drawable/blue_flying_monster" />
 
     <ImageView
@@ -200,10 +198,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.851"
+        app:layout_constraintHorizontal_bias="0.765"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.763"
+        app:layout_constraintVertical_bias="0.683"
         app:srcCompat="@drawable/hooded_orc" />
 
     <ImageView
@@ -214,23 +212,24 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintHorizontal_bias="0.801"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.797"
+        app:layout_constraintVertical_bias="0.691"
         app:srcCompat="@drawable/orc" />
 
     <ImageView
         android:id="@+id/skeleton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:rotationY="180"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.895"
+        app:layout_constraintHorizontal_bias="0.799"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.733"
+        app:layout_constraintVertical_bias="0.685"
         app:srcCompat="@drawable/skeleton2" />
 
     <ImageView
@@ -240,10 +239,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.882"
+        app:layout_constraintHorizontal_bias="0.819"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.737"
+        app:layout_constraintVertical_bias="0.698"
         app:srcCompat="@drawable/skeleton3" />
 
     <ImageView
@@ -254,24 +253,24 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintHorizontal_bias="0.803"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.759"
+        app:layout_constraintVertical_bias="0.729"
         app:srcCompat="@drawable/vampire" />
 
     <ImageView
         android:id="@+id/witch"
-        android:layout_width="174dp"
-        android:layout_height="146dp"
+        android:layout_width="164dp"
+        android:layout_height="132dp"
         android:rotationY="180"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintHorizontal_bias="0.841"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.769"
+        app:layout_constraintVertical_bias="0.526"
         app:srcCompat="@drawable/witch" />
 
     <ImageView
@@ -281,10 +280,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.747"
+        app:layout_constraintVertical_bias="0.715"
         app:srcCompat="@drawable/cleric_attack" />
 
     <ImageView
@@ -294,10 +293,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintHorizontal_bias="0.257"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.886"
+        app:layout_constraintVertical_bias="0.903"
         app:srcCompat="@drawable/dead_cleric" />
 
     <ImageView
@@ -307,10 +306,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.223"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.855"
+        app:layout_constraintVertical_bias="0.849"
         app:srcCompat="@drawable/dead_fighter" />
 
     <ImageView
@@ -321,10 +320,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.848"
+        app:layout_constraintHorizontal_bias="0.846"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.756"
+        app:layout_constraintVertical_bias="0.677"
         app:srcCompat="@drawable/dead_flying_monster" />
 
     <ImageView
@@ -335,10 +334,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintHorizontal_bias="0.784"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.877"
+        app:layout_constraintVertical_bias="0.827"
         app:srcCompat="@drawable/dead_hooded_orc" />
 
     <ImageView
@@ -348,10 +347,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.887"
+        app:layout_constraintVertical_bias="0.904"
         app:srcCompat="@drawable/dead_mage" />
 
     <ImageView
@@ -362,63 +361,63 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintHorizontal_bias="0.767"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.791"
+        app:layout_constraintVertical_bias="0.784"
         app:srcCompat="@drawable/dead_orc" />
 
     <ImageView
         android:id="@+id/dead_rogue"
-        android:layout_width="134dp"
-        android:layout_height="80dp"
+        android:layout_width="140dp"
+        android:layout_height="65dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintHorizontal_bias="0.236"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.861"
+        app:layout_constraintVertical_bias="0.817"
         app:srcCompat="@drawable/dead_rogue" />
 
     <ImageView
         android:id="@+id/dead_skeleton"
-        android:layout_width="101dp"
-        android:layout_height="75dp"
+        android:layout_width="79dp"
+        android:layout_height="64dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintHorizontal_bias="0.771"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.848"
+        app:layout_constraintVertical_bias="0.798"
         app:srcCompat="@drawable/dead_skeleton" />
 
     <ImageView
         android:id="@+id/dead_witch"
-        android:layout_width="77dp"
-        android:layout_height="68dp"
+        android:layout_width="94dp"
+        android:layout_height="80dp"
         android:rotationY="180"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.831"
+        app:layout_constraintHorizontal_bias="0.765"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.813"
+        app:layout_constraintVertical_bias="0.715"
         app:srcCompat="@drawable/dead_witch" />
 
     <ImageView
         android:id="@+id/fighter_attack"
-        android:layout_width="131dp"
-        android:layout_height="204dp"
+        android:layout_width="161dp"
+        android:layout_height="211dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintHorizontal_bias="0.27"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.826"
+        app:layout_constraintVertical_bias="0.735"
         app:srcCompat="@drawable/fighter_attack" />
 
     <ImageView
@@ -429,10 +428,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintHorizontal_bias="0.638"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.687"
+        app:layout_constraintVertical_bias="0.703"
         app:srcCompat="@drawable/flying_monster_attack" />
 
     <ImageView
@@ -443,9 +442,250 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.854"
+        app:layout_constraintHorizontal_bias="0.695"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.747"
+        app:layout_constraintVertical_bias="0.68"
         app:srcCompat="@drawable/hooded_orc_attack" />
+
+    <ImageView
+        android:id="@+id/mage_attack"
+        android:layout_width="126dp"
+        android:layout_height="204dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.254"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.782"
+        app:srcCompat="@drawable/mage_attack"/>
+
+    <ImageView
+        android:id="@+id/rogue_attack"
+        android:layout_width="161dp"
+        android:layout_height="203dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.287"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.735"
+        app:srcCompat="@drawable/rogue_attack" />
+
+    <ImageView
+        android:id="@+id/dead_vampire"
+        android:layout_width="155dp"
+        android:layout_height="109dp"
+        android:rotationY="180"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.86"
+        app:srcCompat="@drawable/dead_vampire" />
+
+    <ImageView
+        android:id="@+id/skeleton1_attack"
+        android:layout_width="176dp"
+        android:layout_height="199dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.699"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.748"
+        app:srcCompat="@drawable/skeleton1_attack" />
+
+    <ImageView
+        android:id="@+id/orc_attack"
+        android:layout_width="185dp"
+        android:layout_height="275dp"
+        android:rotationY="180"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.739"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.786"
+        app:srcCompat="@drawable/orc_attack" />
+
+    <ImageView
+        android:id="@+id/skeleton2_attack"
+        android:layout_width="182dp"
+        android:layout_height="186dp"
+        android:rotationY="180"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.705"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        app:srcCompat="@drawable/skeleton2_attack" />
+
+    <ImageView
+        android:id="@+id/skeleton3_attack"
+        android:layout_width="194dp"
+        android:layout_height="241dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.658"
+        app:srcCompat="@drawable/skeleton3_attack" />
+
+    <ImageView
+        android:id="@+id/vampire_attack"
+        android:layout_width="177dp"
+        android:layout_height="241dp"
+        android:rotationY="180"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.727"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.804"
+        app:srcCompat="@drawable/vampire_attack" />
+
+    <ImageView
+        android:id="@+id/witch_attack"
+        android:layout_width="153dp"
+        android:layout_height="154dp"
+        android:rotationY="180"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.571"
+        app:srcCompat="@drawable/witch_attack" />
+
+    <TextView
+        android:id="@+id/gameOver"
+        android:layout_width="176dp"
+        android:layout_height="50dp"
+        android:background="#EAE0E0"
+        android:text="Game Over"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.332" />
+
+    <Button
+        android:id="@+id/returnMainMenu"
+        android:layout_width="167dp"
+        android:layout_height="45dp"
+        android:text="Continue"
+        android:visibility="invisible"
+        android:onClick="returnToMainMenu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/monstersDefeated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="256dp"
+        android:text="Monsters defeated: "
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.063" />
+
+    <TextView
+        android:id="@+id/numMonstersDefeated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="148dp"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/monstersDefeated"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.063" />
+
+    <TextView
+        android:id="@+id/playerHP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HP: "
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.944" />
+
+    <TextView
+        android:id="@+id/monsterHP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HP: "
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.851"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.946" />
+
+    <TextView
+        android:id="@+id/playerHPValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.944" />
+
+    <TextView
+        android:id="@+id/monsterHPValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.867"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.946" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
