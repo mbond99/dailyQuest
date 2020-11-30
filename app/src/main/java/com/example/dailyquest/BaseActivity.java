@@ -83,7 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
         setupDateTimeInterpreter(id == R.id.action_week_view);
         switch (id){
             case R.id.action_home:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                 BaseActivity.this.startActivity(intent);
             case R.id.action_today:
                 mWeekView.goToToday();
