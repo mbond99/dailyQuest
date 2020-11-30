@@ -16,7 +16,7 @@ import java.util.Random;
 public class Game extends AppCompatActivity {
 
     private SQLiteConnection localDatabase;
-    Handler myHandler = new Handler();
+    Handler myHandler = new Handler();  //handler is used to call delayed functions
     Button button;
     ImageView mage, cleric, fighter, rogue, mageAttack, clericAttack, fighterAttack, rogueAttack, deadMage, deadCleric, deadFighter, deadRogue;
     ImageView skeleton1, orc, flyingMonster, skeleton2, hoodedOrc, vampire, skeleton3, witch;
@@ -26,22 +26,23 @@ public class Game extends AppCompatActivity {
     Monster currentMonster = new Monster();
     int monsterLevelNum = 1;
     int deadMonsters = 0;
-    //need to get from db
+    int strength, intelligence, constitution, dexterity;
+    String className;
+    int playerHP;
 
-    String className = "rogue";
-    int strength = 2;
-    int intelligence = 8;
-    int constitution = 4;
-    int dexterity = 6;
-    int playerHP = 5000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+    }
 
+    //main game function
+    public void startGame(View view){
+        //create database connection to pull player class and stats
         localDatabase = new SQLiteConnection(this);
         SQLiteDataModels.PlayerModel playerInfo = localDatabase.getPlayer();
         className = playerInfo.PlayerType;
+        System.out.println(className);
 
         ArrayList<SQLiteDataModels.StatModel> playerStats = localDatabase.getAllStats();
         for (SQLiteDataModels.StatModel stat : playerStats) {
@@ -61,39 +62,37 @@ public class Game extends AppCompatActivity {
             }
         }
 
-        playerHP = constitution * 10;
+        playerHP = (strength + intelligence + constitution + dexterity) * 10; //calculate playerHP from player stats
 
-        localDatabase.close();
-    }
+        localDatabase.close(); //info from database has been pulled can close database
 
-    //main game function
-    public void startGame(View view){
+        //get player images
         mage = (ImageView) findViewById(R.id.mage);
         cleric = (ImageView) findViewById(R.id.cleric);
         fighter = (ImageView) findViewById(R.id.fighter);
         rogue = (ImageView) findViewById(R.id.rogue);
-        //set button invisible
-        button=(Button) findViewById(R.id.playButton);
-        button.setVisibility(View.GONE);
+
+        //get text displays
         mDefeated = (TextView) findViewById(R.id.monstersDefeated);
         numMDefeated = (TextView) findViewById(R.id.numMonstersDefeated);
         playerHPText = (TextView) findViewById(R.id.playerHP);
         numPlayerHP = (TextView) findViewById(R.id.playerHPValue);
         monsterHPText = (TextView) findViewById(R.id.monsterHP);
         numMonsterHP = (TextView) findViewById(R.id.monsterHPValue);
+
+        //set text displays visible
         mDefeated.setVisibility(View.VISIBLE);
         numMDefeated.setVisibility(View.VISIBLE);
         playerHPText.setVisibility(View.VISIBLE);
         numPlayerHP.setVisibility(View.VISIBLE);
         monsterHPText.setVisibility(View.VISIBLE);
         numMonsterHP.setVisibility(View.VISIBLE);
-        /*
-        localDatabase = new SQLiteConnection(this);
-        className = localDatabase.getPlayer().PlayerType;
-        strength = localDatabase.getStatByName("strength");
-        intelligence = localDatabase.getStatByName(intelligence);
-        constitution = localDatabase.getStatByName(constitution);
-        dexterity = localDatabase.getStatByName(dexterity);*/
+
+        //set play button invisible
+        button=(Button) findViewById(R.id.playButton);
+        button.setVisibility(View.GONE);
+
+        //find correct player block and display player image, add monster, display playerHP, and display attack buttons
         switch(className) {
             case "mage":
                 mage.setVisibility(View.VISIBLE);
@@ -128,6 +127,7 @@ public class Game extends AppCompatActivity {
 
     //returns the next monster that needs to be added to the scene
     private Monster addMonster(){
+        //get monster images
         skeleton1 = (ImageView) findViewById(R.id.skeleton1);
         orc = (ImageView) findViewById(R.id.orc);
         flyingMonster = (ImageView) findViewById(R.id.blue_flying_monster);
@@ -137,19 +137,22 @@ public class Game extends AppCompatActivity {
         witch = (ImageView) findViewById(R.id.witch);
         skeleton3 = (ImageView) findViewById(R.id.skeleton3);
         numMonsterHP = (TextView) findViewById(R.id.monsterHPValue);
+
+        //since we only have 8 monster images once a player has defeated all 8 monsters they start over with the first monster image with stats multiplied by incrementor
         int m = 1;
         int monsterHP;
         while (monsterLevelNum > 8){
             monsterLevelNum -= 8;
             m++;
         }
+
+        //find correct monster block, remove previous monster image, add new monster image, create monster, display monsterHP, return correct monster
         switch(monsterLevelNum){
             case 1:
                 skeleton3.setVisibility(View.INVISIBLE);
                 skeleton1.setVisibility(View.VISIBLE);
                 Monster level1Monster = new Monster("skeleton1", 1, 50*m, 2*m, 2*m, 2*m, 2*m);
-                monsterHP = 50*m;
-                numMonsterHP.setText(String.valueOf(monsterHP));
+                numMonsterHP.setText(String.valueOf(level1Monster.getMonsterHP()));
                 return level1Monster;
             case 2:
                 skeleton1.setVisibility(View.INVISIBLE);
@@ -216,7 +219,6 @@ public class Game extends AppCompatActivity {
         int iMulti = rand.nextInt(3) + 1; //will return a random number between 1-3
         int dMulti = rand.nextInt(3); //will return a random number from 0-2
         attack = intelligence * iMulti +  dexterity * dMulti;
-        System.out.println("mind blast attack: " + attack);
         return attack;
     }
 
@@ -274,6 +276,7 @@ public class Game extends AppCompatActivity {
         return attack;
     }
 
+    //sets attack buttons to invisible
     public void removeAttackButtons(){
         Button button1, button2, button3, button4, button5;
         button1 = (Button) findViewById(R.id.mindBlast);
@@ -288,8 +291,10 @@ public class Game extends AppCompatActivity {
         button5.setVisibility(View.INVISIBLE);
     }
 
+    //sets mindBlast, mysticBurst, and blazingRush buttons visible for mage or cleric players or
+    //sets smashingBlitx, chaosShock, and blazingRush buttons visible for fighter or rogue players
     public void displayAttackButtons(){
-        if(className == "mage" || className == "cleric"){
+        if(className.equals("mage") || className.equals("cleric")){
             Button button1, button2, button3;
             button1 = (Button) findViewById(R.id.mindBlast);
             button1.setVisibility(View.VISIBLE);
@@ -309,6 +314,8 @@ public class Game extends AppCompatActivity {
         }
     }
 
+    //this method is run when the mind blast button is clicked
+    //calls functions to complete 1 attack sequence between player and monster
     public void activateMindBlast(View view){
         int attack;
         displayMageOrClericAttack();
@@ -318,6 +325,8 @@ public class Game extends AppCompatActivity {
         displayMageOrClericAttack();
     }
 
+    //this method is run when the mystic burst button is clicked
+    //calls functions to complete 1 attack sequence between player and monster
     public void activateMysticBurst(View view){
         int attack;
         displayMageOrClericAttack();
@@ -327,9 +336,11 @@ public class Game extends AppCompatActivity {
         displayMageOrClericAttack();
     }
 
+    //this method is run when the blazing rush button is clicked
+    //calls functions to complete 1 attack sequence between player and monster
     public void activateBlazingRush(View view){
         int attack;
-        if(className == "mage" || className == "cleric"){
+        if(className.equals("mage") || className.equals("cleric")){
             displayMageOrClericAttack();
         }
         else{
@@ -340,6 +351,8 @@ public class Game extends AppCompatActivity {
         monsterAttack();
     }
 
+    //this method is run when the smashing blitz button is clicked
+    //calls functions to complete 1 attack sequence between player and monster
     public void activateSmashingBlitz(View view){
         int attack;
         displayFighterOrRogueAttack();
@@ -349,6 +362,8 @@ public class Game extends AppCompatActivity {
         displayFighterOrRogueAttack();
     }
 
+    //this method is run when the chaos shock button is clicked
+    //calls functions to complete 1 attack sequence between player and monster
     public void activateChaosShock(View view){
         int attack;
         displayFighterOrRogueAttack();
@@ -358,7 +373,8 @@ public class Game extends AppCompatActivity {
         displayFighterOrRogueAttack();
     }
 
-    public void applyAttackToMonster(Monster currentMonster, int attack){ //current global variable
+    //subtracts the player attack from the currentMonster and display the monsters new HP value on screen
+    public void applyAttackToMonster(Monster currentMonster, int attack){
         int hp;
         hp = currentMonster.getMonsterHP();
         hp -= attack;
@@ -367,6 +383,8 @@ public class Game extends AppCompatActivity {
         numMonsterHP.setText(String.valueOf(currentMonster.getMonsterHP()));
     }
 
+    //if monsterHP is less than or equal to 0 increment number of dead monsters and display value on screen return true
+    //otherwise reutrn false
     public boolean MonsterDied(){
         int hp = currentMonster.getMonsterHP();
         if(hp <= 0) {
@@ -379,13 +397,8 @@ public class Game extends AppCompatActivity {
             return false;
     }
 
-    public boolean PlayerDied(){
-        if(playerHP <= 0)
-            return true;
-        else
-            return false;
-    }
-
+    //check if monster is dead. If monster dead display dead monster then increment monsterLevelNum
+    //call delayedMonsterAttack
     public void monsterAttack(){
         boolean deadMonster;
         deadMonster = MonsterDied();
@@ -436,13 +449,18 @@ public class Game extends AppCompatActivity {
         myHandler.postDelayed(monsterAttackDelay, 1000);
     }
 
+    //displays images for mage or cleric attacks
     public void displayMageOrClericAttack(){
-        removeAttackButtons();
+        removeAttackButtons(); //remove the attack buttons so that players cannot spam the attack button
+
+        //get images needed for attack
         mage = (ImageView) findViewById(R.id.mage);
         mageAttack = (ImageView) findViewById(R.id.mage_attack);
         cleric = (ImageView) findViewById(R.id.cleric);
         clericAttack = (ImageView) findViewById(R.id.cleric_attack);
-        if (className == "mage"){
+
+        //make sure correct class block is called then remove regular image and replace with attack image call attackDelay
+        if (className.equals("mage")){
             mage.setVisibility(View.INVISIBLE);
             mageAttack.setVisibility(View.VISIBLE);
             myHandler.postDelayed(mageAttackDelay, 1000);
@@ -454,13 +472,14 @@ public class Game extends AppCompatActivity {
         }
     }
 
+    //displays images for fighter or rogue attacks
     public void displayFighterOrRogueAttack(){
         removeAttackButtons();
         fighter = (ImageView) findViewById(R.id.fighter);
         fighterAttack = (ImageView) findViewById(R.id.fighter_attack);
         rogue = (ImageView) findViewById(R.id.rogue);
         rogueAttack = (ImageView) findViewById(R.id.rogue_attack);
-        if(className == "fighter"){
+        if(className.equals("fighter")){
             fighter.setVisibility(View.INVISIBLE);
             fighterAttack.setVisibility(View.VISIBLE);
             myHandler.postDelayed(fighterAttackDelay, 1000);
@@ -471,6 +490,8 @@ public class Game extends AppCompatActivity {
             myHandler.postDelayed(rogueAttackDelay, 1000);
         }
     }
+
+    //the following functions display the dead image version of the monsters
 
     public void displayDeadSkeleton1(){
         skeleton1 = (ImageView) findViewById(R.id.skeleton1);
@@ -528,7 +549,9 @@ public class Game extends AppCompatActivity {
         flyingMonsterAttack.setVisibility(View.VISIBLE);
     }
 
+    //display monster attacks
     public void displayMonsterAttack(){
+        //get regular image and attack images for players
         skeleton1 = (ImageView)  findViewById(R.id.skeleton1);
         skeleton2 = (ImageView) findViewById(R.id.skeleton2);
         skeleton3 = (ImageView) findViewById(R.id.skeleton3);
@@ -545,6 +568,8 @@ public class Game extends AppCompatActivity {
         flyingMonsterAttack = (ImageView) findViewById(R.id.flying_monster_attack);
         vampireAttack = (ImageView) findViewById(R.id.vampire_attack);
         witchAttack = (ImageView) findViewById(R.id.witch_attack);
+
+        //find correct monster and replace regular image with attack image then call attack delay
         switch(monsterLevelNum){
             case 1:
                 skeleton1.setVisibility(View.INVISIBLE);
@@ -588,6 +613,8 @@ public class Game extends AppCompatActivity {
                 break;
         }
     }
+
+    //the following Runnable objects remove the attack image and display the regular image for players and monsters
 
     private Runnable mageAttackDelay = new Runnable() {
         @Override
@@ -779,6 +806,7 @@ public class Game extends AppCompatActivity {
         }
     };
 
+    //applys monsters attack to player and displays the monster attack
         private Runnable monsterAttackDelay = new Runnable() {
             @Override
             public void run() {
@@ -786,18 +814,21 @@ public class Game extends AppCompatActivity {
                 Random rand = new Random();
                 multi = rand.nextInt(4); //will return random number from 0-3
                 attack = currentMonster.getMonsterStrength() * multi + currentMonster.getMonsterIntelligance() * multi + currentMonster.getMonsterConsitution() * multi + currentMonster.getMonsterDexterity() * multi;
-                System.out.println("monster attack: " + attack);
                 playerHP -= attack;
+
+                //if the player's HP is less than or equal to 0 call the gameOver delay
                 if(playerHP <= 0){
                     playerHP = 0;
                     myHandler.postDelayed(gameOverDelay, 1000);
                 }
+                //display new playerHP to the screen
                 numPlayerHP = (TextView) findViewById(R.id.playerHPValue);
                 numPlayerHP.setText(String.valueOf(playerHP));
                 displayMonsterAttack();
             }
         };
 
+        //displays game over text, continue button, and dead player image
         private Runnable gameOverDelay = new Runnable() {
             @Override
             public void run() {
@@ -836,6 +867,7 @@ public class Game extends AppCompatActivity {
             }
         };
 
+        //method is called when continue button is clicked returns screen to Main menu
         public void returnToMainMenu(View view){
             Intent intent = new Intent(getApplicationContext(), MainMenu.class);
             Game.this.startActivity(intent);

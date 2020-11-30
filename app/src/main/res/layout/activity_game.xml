@@ -6,6 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
+    android:isScrollContainer="false"
+    android:keepScreenOn="false"
+    android:orientation="horizontal"
     android:visibility="visible"
     tools:context=".Game">
 
@@ -459,7 +462,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.782"
-        app:srcCompat="@drawable/mage_attack"/>
+        app:srcCompat="@drawable/mage_attack" />
 
     <ImageView
         android:id="@+id/rogue_attack"
@@ -589,9 +592,9 @@
         android:id="@+id/returnMainMenu"
         android:layout_width="167dp"
         android:layout_height="45dp"
+        android:onClick="returnToMainMenu"
         android:text="Continue"
         android:visibility="invisible"
-        android:onClick="returnToMainMenu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
@@ -683,9 +686,9 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.867"
+        app:layout_constraintHorizontal_bias="0.889"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.946" />
+        app:layout_constraintVertical_bias="0.944" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
