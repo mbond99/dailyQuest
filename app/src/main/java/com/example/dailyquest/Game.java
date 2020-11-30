@@ -87,8 +87,9 @@ public class Game extends AppCompatActivity {
         numPlayerHP.setVisibility(View.VISIBLE);
         monsterHPText.setVisibility(View.VISIBLE);
         numMonsterHP.setVisibility(View.VISIBLE);
+        /*
         localDatabase = new SQLiteConnection(this);
-        /*className = localDatabase.getPlayer().PlayerType;
+        className = localDatabase.getPlayer().PlayerType;
         strength = localDatabase.getStatByName("strength");
         intelligence = localDatabase.getStatByName(intelligence);
         constitution = localDatabase.getStatByName(constitution);
