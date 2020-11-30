@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         DatabaseSetup();
-        localDatabase.close();
 
         Intent intent;
         if (FirstTimeStartUp){
@@ -69,5 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(String.format("\tID: %d, NAME: %s, VALUE: %d", stat.StatId, stat.StatName, stat.StatValue));
             }
         }
+
+        localDatabase.close();
     }
 }

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Game extends AppCompatActivity {
@@ -36,6 +38,32 @@ public class Game extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        localDatabase = new SQLiteConnection(this);
+        SQLiteDataModels.PlayerModel playerInfo = localDatabase.getPlayer();
+        className = playerInfo.PlayerType;
+
+        ArrayList<SQLiteDataModels.StatModel> playerStats = localDatabase.getAllStats();
+        for (SQLiteDataModels.StatModel stat : playerStats) {
+            switch (stat.StatName){
+                case "strength":
+                    strength = stat.StatValue;
+                    break;
+                case "intelligence":
+                    intelligence = stat.StatValue;
+                    break;
+                case "dexterity":
+                    dexterity = stat.StatValue;
+                    break;
+                case "constitution":
+                    constitution = stat.StatValue;
+                    break;
+            }
+        }
+
+        playerHP = constitution * 10;
+
+        localDatabase.close();
     }
 
     //main game function
