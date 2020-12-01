@@ -48,7 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
         questList = new QuestCalendar(); //NIC LOOK HERE
         if(getIntent().getExtras() != null) {
             Quest quest = (Quest) getIntent().getSerializableExtra("Quest");
-            questList.addQuest(quest);
+            //questList.addQuest(quest);
 
             // Save quest to database
             SQLiteDataModels.QuestModel dbQuest = SQLiteDataModels.CreateQuestModelFromQuestObject(quest);
