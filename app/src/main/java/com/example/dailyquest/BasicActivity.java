@@ -19,23 +19,11 @@ public class BasicActivity extends BaseActivity {
     public BasicActivity(){
     }
 
+
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
         // Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
-
-
-/*        Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 3);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        Calendar endTimex = (Calendar) startTime.clone();
-        endTimex.add(Calendar.HOUR, 1);
-        endTimex.set(Calendar.MONTH, newMonth-1);
-        WeekViewEvent eventx = new WeekViewEvent(1, getEventTitle(startTime), startTime, endTimex);
-        eventx.setColor(getResources().getColor(R.color.event_color_01));
-        events.add(eventx);*/
 
         int count = 0;
         for(Quest q:questList.getAllQuests()){
@@ -52,12 +40,18 @@ public class BasicActivity extends BaseActivity {
                 case "Health":
                     event.setColor(getResources().getColor(R.color.event_color_03));
             }
-            events.add(event);
+            if (eventMatches(event, newYear, newMonth)) {
+                events.add(event);
+            }
+
             count++;
         }
 
-
         return events;
+    }
+
+    private boolean eventMatches(WeekViewEvent event, int year, int month) {
+        return (event.getStartTime().get(Calendar.YEAR) == year && event.getStartTime().get(Calendar.MONTH) == month - 1) || (event.getEndTime().get(Calendar.YEAR) == year && event.getEndTime().get(Calendar.MONTH) == month - 1);
     }
 
 }
