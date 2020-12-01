@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     // Database specific declarations
     private SQLiteConnection localDatabase;
     private boolean FirstTimeStartUp = false;
-    private static final boolean RESET_DATABASE = true;
+    private static final boolean RESET_DATABASE = false;
     private static final boolean TEST_DATABASE = false;
 
     @Override

@@ -1,6 +1,10 @@
 package com.example.dailyquest;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class SQLiteDataModels {
 
@@ -45,6 +49,40 @@ public class SQLiteDataModels {
         return stat;
     }
 
+    // Translation function to and from quest models and quest objects
+    public static QuestModel CreateQuestModelFromQuestObject(Quest questObject){
+        QuestModel questModel = new QuestModel();
+
+        questModel.QuestType = questObject.getType();
+        questModel.QuestDesc = questObject.getDescription();
+        questModel.QuestDuration = questObject.getEndTime();
+        DateFormat dateAsString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        questModel.QuestDate = dateAsString.format(questObject.getStartTime().getTime());
+
+        return questModel;
+    }
+
+    public static Quest CreateQuestObjectFromQuestModel(QuestModel questModel){
+        Quest questObject = new Quest();
+
+        questObject.setType(questModel.QuestType);
+        questObject.setDescription(questModel.QuestDesc);
+        questObject.setETime(questModel.QuestDuration);
+
+        try {
+            Calendar start = Calendar.getInstance();
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            Date date = format.parse(questModel.QuestDate);
+            start.setTime(date);
+            questObject.setSTime(start);
+        } catch (java.text.ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return questObject;
+    }
+
     //endregion
 
     //region Quest Model
@@ -52,9 +90,9 @@ public class SQLiteDataModels {
     public static class QuestModel {
         public int QuestId;
         public String QuestDesc;
-        public int QuestType;
-        public int QuestStartTime;
-        public int QuestEndTime;
+        public String QuestType;
+        public int QuestDuration;
+        public String QuestDate;
     }
 
     //endregion

@@ -35,8 +35,8 @@ public class SQLiteConnection extends SQLiteOpenHelper {
     private static final String QUEST_ID = "q_id";
     private static final String QUEST_DESC = "q_desc";
     private static final String QUEST_TYPE = "q_type";
-    private static final String QUEST_START_TIME = "q_start_time";
-    private static final String QUEST_END_TIME = "q_end_time";
+    private static final String QUEST_DURATION = "q_duration";
+    private static final String QUEST_DATE = "q_date";
 
     //endregion
 
@@ -62,10 +62,10 @@ public class SQLiteConnection extends SQLiteOpenHelper {
             "CREATE TABLE %s (" +
                     "%s INTEGER PRIMARY KEY, " +
                     "%s TEXT NOT NULL, " +
-                    "%s INTEGER NOT NULL, " +
+                    "%s TEXT NOT NULL, " +
                     "%s INTEGER NOT NULL, "+
-                    "%s INTEGER NOT NULL);",
-            TABLE_QUEST, QUEST_ID, QUEST_DESC, QUEST_TYPE, QUEST_START_TIME, QUEST_END_TIME);
+                    "%s TEXT NOT NULL);",
+            TABLE_QUEST, QUEST_ID, QUEST_DESC, QUEST_TYPE, QUEST_DURATION, QUEST_DATE);
 
     private static final String QUERY_DELETE_TABLE = "DROP TABLE IF EXISTS %s;";
 
@@ -161,7 +161,7 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
     /** Inserts a quest with the passed parameters. Returns true if successful
      * and false if the insertion failed. **/
-    public boolean insertQuest(String questDesc, int questType, int questStartTime, int questEndTime){
+    public boolean insertQuest(String questDesc, String questType, int questDuration, String questDate){
         // Grab the database
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -169,8 +169,8 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         ContentValues newQuest = new ContentValues();
         newQuest.put(QUEST_DESC, questDesc);
         newQuest.put(QUEST_TYPE, questType);
-        newQuest.put(QUEST_START_TIME, questStartTime);
-        newQuest.put(QUEST_END_TIME, questEndTime);
+        newQuest.put(QUEST_DURATION, questDuration);
+        newQuest.put(QUEST_DATE, questDate);
 
         // Insert the quest and get results
         long result = db.insert(TABLE_QUEST, null, newQuest);
@@ -187,8 +187,8 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         ContentValues newQuest = new ContentValues();
         newQuest.put(QUEST_DESC, quest.QuestDesc);
         newQuest.put(QUEST_TYPE, quest.QuestType);
-        newQuest.put(QUEST_START_TIME, quest.QuestStartTime);
-        newQuest.put(QUEST_END_TIME, quest.QuestEndTime);
+        newQuest.put(QUEST_DURATION, quest.QuestDuration);
+        newQuest.put(QUEST_DATE, quest.QuestDate);
 
         // Insert the quest and get results
         long result = db.insert(TABLE_QUEST, null, newQuest);
@@ -247,14 +247,14 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         return result > 0;
     }
 
-    public boolean updateQuest(int questId, String questDesc, int questType, int questStartTime, int questEndTime){
+    public boolean updateQuest(int questId, String questDesc, String questType, int questDuration, String questDate){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues quest = new ContentValues();
 
         quest.put(QUEST_DESC, questDesc);
         quest.put(QUEST_TYPE, questType);
-        quest.put(QUEST_START_TIME, questStartTime);
-        quest.put(QUEST_END_TIME, questEndTime);
+        quest.put(QUEST_DURATION, questDuration);
+        quest.put(QUEST_DATE, questDate);
 
         int result = db.update(TABLE_QUEST, quest, String.format("%s = ?", QUEST_ID),
                 new String[] { Integer.toString(questId) });
@@ -347,9 +347,9 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
             quest.QuestId = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_ID));
             quest.QuestDesc = nextQuest.getString(nextQuest.getColumnIndex(QUEST_DESC));
-            quest.QuestType = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_TYPE));
-            quest.QuestStartTime = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_START_TIME));
-            quest.QuestEndTime = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_END_TIME));
+            quest.QuestType = nextQuest.getString(nextQuest.getColumnIndex(QUEST_TYPE));
+            quest.QuestDuration = nextQuest.getInt(nextQuest.getColumnIndex(QUEST_DURATION));
+            quest.QuestDate = nextQuest.getString(nextQuest.getColumnIndex(QUEST_DATE));
 
             quests.add(quest);
 
@@ -371,9 +371,9 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
             quest.QuestId = dbEntry.getInt(dbEntry.getColumnIndex(QUEST_ID));
             quest.QuestDesc = dbEntry.getString(dbEntry.getColumnIndex(QUEST_DESC));
-            quest.QuestType = dbEntry.getInt(dbEntry.getColumnIndex(QUEST_TYPE));
-            quest.QuestStartTime = dbEntry.getInt(dbEntry.getColumnIndex(QUEST_START_TIME));
-            quest.QuestEndTime = dbEntry.getInt(dbEntry.getColumnIndex(QUEST_END_TIME));
+            quest.QuestType = dbEntry.getString(dbEntry.getColumnIndex(QUEST_TYPE));
+            quest.QuestDuration = dbEntry.getInt(dbEntry.getColumnIndex(QUEST_DURATION));
+            quest.QuestDate = dbEntry.getString(dbEntry.getColumnIndex(QUEST_DATE));
 
             dbEntry.close();
         }

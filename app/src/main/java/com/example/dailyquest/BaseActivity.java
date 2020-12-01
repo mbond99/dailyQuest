@@ -1,6 +1,7 @@
 package com.example.dailyquest;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -35,18 +37,30 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
     protected QuestCalendar questList;
-
-
+    SQLiteConnection localdatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+
+        localdatabase = new SQLiteConnection(this);
         questList = new QuestCalendar(); //NIC LOOK HERE
         if(getIntent().getExtras() != null) {
             Quest quest = (Quest) getIntent().getSerializableExtra("Quest");
             questList.addQuest(quest);
+
+            // Save quest to database
+            SQLiteDataModels.QuestModel dbQuest = SQLiteDataModels.CreateQuestModelFromQuestObject(quest);
+            localdatabase.insertQuest(dbQuest);
         }
+
+        ArrayList<SQLiteDataModels.QuestModel> dbQuests = localdatabase.getAllQuests();
+        for(SQLiteDataModels.QuestModel dbQuest : dbQuests){
+            Quest newQuest = SQLiteDataModels.CreateQuestObjectFromQuestModel(dbQuest);
+            questList.addQuest(newQuest);
+        }
+
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
 
@@ -66,6 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
         setupDateTimeInterpreter(false);
+        localdatabase.close();
     }
 
     public void toAddQuest(View view){
