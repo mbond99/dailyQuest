@@ -263,8 +263,18 @@ public class SQLiteConnection extends SQLiteOpenHelper {
     }
 
     public boolean updateQuest(SQLiteDataModels.QuestModel quest){
-        // TODO
-        return false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues dbquest = new ContentValues();
+
+        dbquest.put(QUEST_DESC, quest.QuestDesc);
+        dbquest.put(QUEST_TYPE, quest.QuestType);
+        dbquest.put(QUEST_DURATION, quest.QuestDuration);
+        dbquest.put(QUEST_DATE, quest.QuestDate);
+
+        int result = db.update(TABLE_QUEST, dbquest, String.format("%s = ?", QUEST_ID),
+                new String[] { Integer.toString(quest.QuestId) });
+
+        return result > 0;
     }
 
     //endregion

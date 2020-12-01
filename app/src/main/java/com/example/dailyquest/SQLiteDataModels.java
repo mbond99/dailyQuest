@@ -58,6 +58,7 @@ public class SQLiteDataModels {
         questModel.QuestDuration = questObject.getEndTime();
         DateFormat dateAsString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         questModel.QuestDate = dateAsString.format(questObject.getStartTime().getTime());
+        questModel.QuestId = questObject.getId();
 
         return questModel;
     }
@@ -79,6 +80,8 @@ public class SQLiteDataModels {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        questObject.setId(questModel.QuestId);
 
         return questObject;
     }
