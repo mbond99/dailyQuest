@@ -25,11 +25,10 @@ public class BasicActivity extends BaseActivity {
         // Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
 
-        int count = 0;
         for(Quest q:questList.getAllQuests()){
             Calendar endTime = (Calendar) q.getStartTime().clone();
             endTime.set(Calendar.MINUTE, q.getEndTime()+q.getStartTime().get(Calendar.MINUTE));
-            WeekViewEvent event = new WeekViewEvent(count,q.getDescription(),q.getStartTime(),endTime);
+            WeekViewEvent event = new WeekViewEvent(q.getId(),q.getDescription(),q.getStartTime(),endTime);
             switch(q.getType()){
                 case "Fitness":
                     event.setColor(getResources().getColor(R.color.event_color_02));
@@ -44,7 +43,6 @@ public class BasicActivity extends BaseActivity {
                 events.add(event);
             }
 
-            count++;
         }
 
         return events;

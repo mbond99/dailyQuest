@@ -88,6 +88,6 @@ public class QuestActivity extends AppCompatActivity {
     }
 
     private void removeFromDB(){
-
+        localDatabase.deleteQuestById(quest.getId());
     }
 }

@@ -49,12 +49,18 @@ public class TimePickerFragment extends DialogFragment
         if(hour>12){
             time+=Integer.toString(hour-12);
             time+=":";
+            if(minute<10){
+                time+="0";
+            }
             time+=Integer.toString(minute);
             time+=(" pm");
         }
         else{
             time+=Integer.toString(hour);
             time+=":";
+            if(minute<10){
+                time+="0";
+            }
             time+=Integer.toString(minute);
             time+=(" am");
         }

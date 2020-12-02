@@ -186,6 +186,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
         int healthColor = Color.parseColor("#87D288");
         Quest q = new Quest();
         q.setDescription(event.getName());
+        q.setId((int) event.getId());
         if(event.getColor() == fitnessColor){
             q.setType("Fitness");
         }
