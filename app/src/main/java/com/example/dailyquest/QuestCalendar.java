@@ -11,29 +11,14 @@ public class QuestCalendar implements Serializable {
         questList = new ArrayList<>();
     }
 
-    public QuestCalendar(ArrayList<Quest> quests){
-        questList = quests;
-    }
-
     public void addQuest(Quest q){
         questList.add(q);
-    }
-
-    public void remQuest(Quest q){
-        questList.remove(q);
-    }
-
-    public Quest getQuest(int i){
-        return questList.get(i);
     }
 
     public ArrayList<Quest> getAllQuests(){
         return questList;
     }
 
-    public void startQuest(Quest q){
-        q.startQuest();
-    }
 
 
 }

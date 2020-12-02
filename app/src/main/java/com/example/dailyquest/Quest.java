@@ -28,29 +28,6 @@ public class Quest implements Serializable {
         id = i;
     }
 
-    /*
-    WORK IN PROGRESS. NEED GUI IN ORDER TO SETUP TIMER
-     */
-    public void startQuest(){
-
-    }
-
-    /*
-    WIP. NEED CHARACTER CLASS AND DATABASE CONNECTION TO UPDATE CHAR STATS
-     */
-    public int[] finishQuest(int[] initialStats){
-        int[] updatedStats = new int[initialStats.length];
-        return updatedStats;
-    }
-
-    /*
-    WIP NEED GUI AND TIMER
-     */
-    private int getTotalTime(Date start, Date end){
-        int totalTime = 0;
-
-        return totalTime;
-    }
 
     public void setType(String s){
         type = s;
