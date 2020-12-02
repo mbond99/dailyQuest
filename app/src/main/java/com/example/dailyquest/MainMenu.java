@@ -2,10 +2,13 @@ package com.example.dailyquest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -37,6 +40,7 @@ public class MainMenu extends AppCompatActivity {
         MainMenu.this.startActivity(intent);
     }
 
+    @SuppressLint("ResourceType")
     private void updatePlayerStatsDisplay(){
         ArrayList<SQLiteDataModels.StatModel> playerStats = localDatabase.getAllStats();
 
@@ -61,6 +65,24 @@ public class MainMenu extends AppCompatActivity {
                     break;
             }
             textbox.setText(String.valueOf(stat.StatValue));
+        }
+
+        String playerClass = localDatabase.getPlayer().PlayerType;
+
+        ImageView image = (ImageView)findViewById(R.id.avatarImg);
+        switch (playerClass.toLowerCase()){
+            case "mage":
+                image.setImageResource(R.drawable.mage);
+                break;
+            case "fighter":
+                image.setImageResource(R.drawable.fighter);
+                break;
+            case "cleric":
+                image.setImageResource(R.drawable.cleric);
+                break;
+            case "rogue":
+                image.setImageResource(R.drawable.rogue);
+                break;
         }
     }
 

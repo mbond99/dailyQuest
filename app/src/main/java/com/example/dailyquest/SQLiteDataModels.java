@@ -77,7 +77,6 @@ public class SQLiteDataModels {
             start.setTime(date);
             questObject.setSTime(start);
         } catch (java.text.ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

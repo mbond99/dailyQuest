@@ -127,8 +127,8 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         db.execSQL(QUERY_CREATE_QUEST_TABLE);
 
         ContentValues val = new ContentValues();
-        val.put(PLAYER_NAME, "Player");
-        val.put(PLAYER_LEVEL, 1);
+        val.put(PLAYER_NAME, "FIRSTTIMESTARTUP");
+        val.put(PLAYER_LEVEL, -1);
         val.put(PLAYER_POINTS, 0);
         val.put(PLAYER_CLASS, "mage");
         db.insert(TABLE_PLAYER, null, val);
@@ -229,10 +229,11 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         return result > 0;
     }
 
+    /*
     public boolean updatePlayerLevel(int playerLevel, int playerPoints){
-        // TODO
         return false;
     }
+    */
 
     public boolean updateStat(String statName, int statVal){
         SQLiteDatabase db = this.getWritableDatabase();

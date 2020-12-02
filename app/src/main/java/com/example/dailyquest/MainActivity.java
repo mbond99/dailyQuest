@@ -45,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
             localDatabase.wipeDatabase();
         }
 
-        FirstTimeStartUp = localDatabase.isFirstTimeStartUp(); // Check if this is the first time the game is launching
+        if (localDatabase.getPlayer().PlayerName.equals("FIRSTTIMESTARTUP") && localDatabase.getPlayer().PlayerLevel == -1){
+            FirstTimeStartUp = true;
+        }
 
         // Tests to see if database is properly loading
         if (TEST_DATABASE) {
